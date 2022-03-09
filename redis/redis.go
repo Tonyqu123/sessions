@@ -45,6 +45,14 @@ func NewStoreWithDB(size int, network, address, password, DB string, keyPairs ..
 	return &store{s}, nil
 }
 
+func NewTlsStoreWithDB(size int, network, address, password, DB string, keyPairs ...[]byte) (Store, error) {
+	s, err := redistore.NewTlsRediStoreWithDB(size, network, address, password, DB, keyPairs...)
+	if err != nil {
+		return nil, err
+	}
+	return &store{s}, nil
+}
+
 // NewStoreWithPool instantiates a RediStore with a *redis.Pool passed in.
 //
 // Ref: https://godoc.org/github.com/boj/redistore#NewRediStoreWithPool
